@@ -1,0 +1,73 @@
+﻿<mahapps:MetroWindow x:Class="HamburgerMenuSample.ShellView"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:cal="http://www.caliburnproject.org"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mahapps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                     xmlns:local="clr-namespace:HamburgerMenuSample"
+                     Height="300" Width="400">
+
+    <mahapps:MetroWindow.Resources>
+        <ControlTemplate x:Key="HamburgerButtonTemplate" TargetType="{x:Type ButtonBase}">
+            <Grid Background="{TemplateBinding Background}">
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                              Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            </Grid>
+        </ControlTemplate>
+
+        <Style x:Key="HamburgerButtonStyle" TargetType="{x:Type ButtonBase}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="Background" Value="{DynamicResource TransparentWhiteBrush}" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Template" Value="{StaticResource HamburgerButtonTemplate}" />
+        </Style>
+        
+        <DataTemplate x:Key="HamburgerMenuItem" DataType="{x:Type mahapps:HamburgerMenuItem}">
+            <Button Margin="0,3,0,3"
+                    HorizontalContentAlignment="Left"
+                    Style="{StaticResource HamburgerButtonStyle}"
+                    cal:Message.Attach="[Event Click] = [Action ShowScreen($dataContext)]">
+                <Grid Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                           Text="{Binding Tag}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="18" FontWeight="Bold"
+                           Focusable="False"
+                           Foreground="White" />
+                    <TextBlock Grid.Column="1"
+                           VerticalAlignment="Center"
+                           FontSize="18"
+                           Foreground="White"
+                           Text="{Binding Label}" />
+                </Grid>
+            </Button>
+        </DataTemplate>
+    </mahapps:MetroWindow.Resources>
+
+    <Grid>
+        <mahapps:HamburgerMenu Foreground="White"
+                        HamburgerWidth="48"
+                        ItemTemplate="{StaticResource HamburgerMenuItem}" 
+                        PaneBackground="#000"
+                        SelectedIndex="-1"
+                        SelectedOptionsIndex="-1">
+            <mahapps:HamburgerMenu.ItemsSource>
+                <mahapps:HamburgerMenuItemCollection>
+                    <mahapps:HamburgerMenuImageItem Label="Screen 1" Tag="1" />
+                    <mahapps:HamburgerMenuImageItem Label="Screen 2" Tag="2" />
+                </mahapps:HamburgerMenuItemCollection>
+            </mahapps:HamburgerMenu.ItemsSource>
+            <ContentControl x:Name="ActiveItem" Foreground="Black" />
+        </mahapps:HamburgerMenu>
+    </Grid>
+</mahapps:MetroWindow>
