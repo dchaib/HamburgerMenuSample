@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HamburgerMenuSample
 {
-    class Screen1ViewModel : Screen
+    public class Screen1ViewModel : Screen
     {
     }
 }

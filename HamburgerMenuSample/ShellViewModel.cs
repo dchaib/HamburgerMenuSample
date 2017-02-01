@@ -3,7 +3,7 @@ using MahApps.Metro.Controls;
 
 namespace HamburgerMenuSample
 {
-    public class ShellViewModel : Conductor<Screen>.Collection.OneActive, IShell
+    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IShell
     {
         public ShellViewModel()
         {
@@ -12,7 +12,7 @@ namespace HamburgerMenuSample
 
         public void ShowScreen(HamburgerMenuItem menuItem)
         {
-            switch (menuItem.Tag)
+            switch ((string)menuItem.Tag)
             {
                 case "1": ActivateItem(new Screen1ViewModel()); break;
                 case "2": ActivateItem(new Screen2ViewModel()); break;
